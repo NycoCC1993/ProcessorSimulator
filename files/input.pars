@@ -1,0 +1,10 @@
+ADDI (1 0 5); This is what an instruction looks like, content beyond semicolon should not be read
+IJUMP (4); Skip the decrement the first time
+ADDI (1 1 -1);
+ADD (2 1 2);
+JUMPG (1 0 2); If r1 is greater than 0, decrement
+STW (2 10 0);
+ADD (19 2 2);
+LDW (10 10 0);
+XHALT (); its written like this just to ensure every instruction contains a space
+ADDI (1 0 1); this is a test to make sure the system does not execute beyond the XHALT instruction

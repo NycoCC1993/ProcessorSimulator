@@ -1,0 +1,10 @@
+Supported:
+    XHALT (0 param)
+    IJUMP (1 param)
+    JUMPG (3 param)
+    JUMPGE (3 param)
+    ADDI (3 param)
+    ADD (3 param)
+    STW (3 param)
+    LDW (3 param)
+Not yet supported (planned):
