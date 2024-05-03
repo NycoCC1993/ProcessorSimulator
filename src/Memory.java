@@ -14,6 +14,8 @@ public class Memory {
         memory = new int[256000];
     }
 
+    public void reset(int size) { size = Math.abs(size); memory = new int[size]; }
+
     public void storeWord(int index, int value) {
         memory[index] = value;
     }
