@@ -28,10 +28,37 @@ Two Parameter (T-Type) Instructions:
     [No T-Type instructions have yet been implemented.]
 
 Three Parameter (Null-Type) Instructions:
-    ADDI (3 param) - Set register in val1 to sum of register content in val2 with raw data in val3 (val3 can be negative)
-    ADD (3 param) - Set register in val1 to sum of register content in val2 with register content in val3
-    JUMPG (3 param) - Jump to the indicated instruction in val3 if val1 > val2
-    JUMPGE (3 param) - Same as JUMPG, but if val1 >= val2
-    LDW (3 param) - Store mem content to register in val1 from a memory location offset by val2 from val3
-    SUB (3 param) - Set register in val1 to difference of register content in val2 with register content in val3
+    ADDI: [register, register, int]
+        The register in the first position is set to the sum of the value in the register in the second position and the
+        raw number in the third position. The raw number can be negative to implement SUBI (which is not planned yet).
+
+    ADD: [register, register, register]
+        The register in the first position is set to the sum of the value in the register in the second position and the
+        value of the register in the third position. If a register contains a negative value and is used in the ADD op,
+        it will behave as normal (adding a negative number), but to subtract positive registers from each other, use SUB.
+
+    JUMPG: [register, register, register]
+        The third parameter is a register which should contain the program counter value for the instruction to jump to.
+        If the value in the register of the first parameter is greater than, but NOT equal to, the value of the register
+        in the second parameter, then the jump occurs, otherwise it advances to the next instruction.
+
+    JUMPGE: [register, register, register]
+        The third parameter is a register which should contain the program counter value for the instruction to jump to.
+        If the value in the register of the first parameter is greater than OR equal to the value of the register in the
+        second parameter, then the jump occurs, otherwise it advances to the next instruction.
+
+    LDW: [register, register, register]
+        The parameters are three registers. First, the processor goes to its Memory object, and looks at the location
+        defined in the register described by the third parameter. Then it takes the register value, and adds to it
+        whatever the value held in the second parameter's register is. It then takes the value found at that position, and
+        loads it into the register described as the first value.
+
+    SUB: [register, register, register]
+        The register in the first position is set to the difference of the value in the register in the second position and
+        the value of the register in the third position.
+
     STW (3 param) - Store register in val1 to a memory location offset by val2 from val3
+        The parameters are three registers. First, the processor goes to its Memory object, and looks at the location
+        defined in the register described by the third parameter. Then it takes the register value, and adds to it
+        whatever the value held in the second parameter's register is. It then takes the value found in the first parameter
+        register, and loads it into the memory location defined by the other two registers.
