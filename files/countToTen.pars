@@ -1,0 +1,26 @@
+ADDI (11 0 10); set r11 = 10
+ADD (10 0 11); set r10 = r11
+IBRANCH (21); Branch to "DECREMENT" @ instruction 21 (must be altered later)
+ADD (9 0 11);
+IBRANCH (21);
+ADD (8 0 11);
+IBRANCH (21);
+ADD (7 0 11);
+IBRANCH (21);
+ADD (6 0 11);
+IBRANCH (21);
+ADD (5 0 11);
+IBRANCH (21);
+ADD (4 0 11);
+IBRANCH (21);
+ADD (3 0 11);
+IBRANCH (21);
+ADD (2 0 11);
+IBRANCH (21);
+ADD (1 0 11);
+XHALT ();
+ADDI (11 11 -1); Function DECREMENT
+XENDBRANCH ();
+;
+; The purpose of this program is to fill registers 1-10 with their respective values
+; That is, r1 = 1, r2 = 2, etc, r10 = 10

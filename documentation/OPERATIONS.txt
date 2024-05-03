@@ -1,0 +1,37 @@
+Supported:
+Zero Parameter (X-Type) Instructions:
+    XHALT: [no input]
+        When the system reads an XHALT instruction, the message "Execution Halted" is displayed, and the console outputs
+        the values of any registers and memory locations that are not equal to zero, as well as the current value of the
+        program counter.
+
+        Syntax - XHALT ();
+
+    XENDBRANCH: [no input]
+        Used in conjunction with the "IBRANCH" instruction. While IBRANCH stores what the program counter would display
+        for the subsequent instruction (directly after the IBRANCH) in Register 26, XENDBRANCH selects whatever value is
+        in Register 26 and checks it for validity, then sets the program counter to that value. XENDBRANCH is meant to be
+        used to conclude branched statements.
+
+        Syntax - XENDBRANCH ();
+
+One Parameter (I-Type) Instructions:
+    IJUMP: [int]
+        The value of the program counter is changed to whatever number the input is. It does NOT collect this value from
+        a register, but uses the raw input value.
+
+    IBRANCH: [int]
+        IBRANCH increments the program counter and stores that value in Register 26 to be used by the XENDBRANCH function.
+        It then sets the program counter to whatever number the input is, same as an IJUMP.
+
+Two Parameter (T-Type) Instructions:
+    [No T-Type instructions have yet been implemented.]
+
+Three Parameter (Null-Type) Instructions:
+    ADDI (3 param) - Set register in val1 to sum of register content in val2 with raw data in val3 (val3 can be negative)
+    ADD (3 param) - Set register in val1 to sum of register content in val2 with register content in val3
+    JUMPG (3 param) - Jump to the indicated instruction in val3 if val1 > val2
+    JUMPGE (3 param) - Same as JUMPG, but if val1 >= val2
+    LDW (3 param) - Store mem content to register in val1 from a memory location offset by val2 from val3
+    SUB (3 param) - Set register in val1 to difference of register content in val2 with register content in val3
+    STW (3 param) - Store register in val1 to a memory location offset by val2 from val3

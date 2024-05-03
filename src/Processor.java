@@ -51,6 +51,17 @@ public class Processor {
         }
     }
 
+    /** Input: destination register, register to subtract from, register w/ amount to subtract */
+    private void sub(int rA, int rB, int rC) {
+        try {
+            registers[rA] = registers[rB] - registers[rC];
+        } catch (IndexOutOfBoundsException noSuchRegister) {
+            //do nothing
+        } finally {
+            setR0();
+        }
+    }
+
     /** Input - register to store, amount to add to location, register with location to begin from */
     private void stw(int register, int offset, int ptr) {
         try {
@@ -111,6 +122,25 @@ public class Processor {
         setR0();
     }
 
+    private void I_branch(int newPC) {
+        if (newPC >= 0) {
+            registers[26] = pc + 1; //set r26 to the next value
+            I_jump(newPC);
+        } else {
+            pc++;
+        }
+        setR0();
+    }
+
+    private void X_endBranch() {
+        if (registers[26] >= 0) {
+            I_jump(registers[26]); //If r26 is clean, jump to it
+        } else {
+            pc++;
+        }
+        setR0();
+    }
+
     private void X_halt() {
         System.out.println("Execution Halted");
         this.expose();
@@ -150,6 +180,10 @@ public class Processor {
                         break;
                     case "ADD":
                         add(i1, i2, i3);
+                        pc++;
+                        break;
+                    case "SUB":
+                        sub(i1, i2, i3);
                         pc++;
                         break;
                     case "STW":
@@ -203,6 +237,9 @@ public class Processor {
                         I_jump(i1);
                         //pc++;
                         break;
+                    case "IBRANCH":
+                        I_branch(i1);
+                        break;
                     default:
                         System.out.println("Reached unexpected halt I");
                         X_halt();
@@ -210,6 +247,9 @@ public class Processor {
             } else if (operation.charAt(0) == 'X') {
                 //this one needs no parsing, only handle the operation
                 switch (operation) {
+                    case "XENDBRANCH":
+                        X_endBranch();
+                        break;
                     case "XHALT":
                     default:
                         System.out.println("Reached unexpected halt X");

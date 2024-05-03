@@ -1,0 +1,18 @@
+--SYNTAX--
+Instruction Format:
+  All instructions will contain the operation and parentheses, and every line in the file must end with ';'
+    Example - ADDI (1 0 1);
+              ; This line can be empty of code, but it must still have the semicolon
+              XHALT (); Code beyond a ';' on a line will not be read, thus can be used for comments
+
+  Instructions should have space separated, but NOT comma separated values
+    Example - ADDI (1 0 1); This is proper code
+              ADDI (1, 0, 1); This line will produce an error
+
+--REGISTER USAGES--
+
+As a Processor object requires a minimum of 32 registers, uses for them are defined here.
+
+r0 : Null register (always holds a value of 0)
+r26 : Branch return (contains the value of program counter to resume from when a branch completes
+r27 : Stack pointer

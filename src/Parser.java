@@ -3,10 +3,15 @@ import java.io.*;
 public class Parser {
     File document = null;
     ArrayList<String> instructions = new ArrayList<String>();
-    public Parser() {
+    public Parser(boolean usingIDE) {
         try {
-            //TODO: This setup works for cmd, but for IDE use the ../ must be removed, whwich breaks it for cmd. Fix IDE?
-            document = new File("../files/input.pars");
+            //This check determines if the IDE is being used, or if code is run from cmd
+            if (usingIDE) {
+                document = new File("files/input.pars");
+            } else {
+                document = new File("../files/input.pars");
+            }
+
             if (document.createNewFile()) {
                 System.out.println("A file was created - " + document.getName());
             } else {
@@ -19,9 +24,14 @@ public class Parser {
     }
 
     //TODO: Modify Parser so it can deel with both .pars (human readable) and .poek (machine language opcodes)
-    public Parser(String fileName) {
+    public Parser(String fileName, boolean usingIDE) {
         String filefull = fileName.concat(".pars");
-        filefull = "../files/".concat(filefull);
+        if (usingIDE) {
+            filefull = "files/".concat(filefull);
+        } else {
+            filefull = "../files/".concat(filefull);
+        }
+
         try {
             document = new File(filefull);
             if (document.createNewFile()) {

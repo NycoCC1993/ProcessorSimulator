@@ -1,10 +1,22 @@
 Supported:
-    XHALT (0 param)
-    IJUMP (1 param)
-    JUMPG (3 param)
-    JUMPGE (3 param)
-    ADDI (3 param)
-    ADD (3 param)
-    STW (3 param)
-    LDW (3 param)
+    XHALT (0 param) - Halt the program
+    XENDBRANCH (expect 0 param) - Fetch the value from register 26 and set the program counter to it
+    IJUMP (1 param) - Set the program counter to access the indicated instruction
+    IBRANCH (1 param) - Write the program counter value plus one on register 26, otherwise functions like a normal IJUMP
+    JUMPG (3 param) - Jump to the indicated instruction in val3 if val1 > val2
+    JUMPGE (3 param) - Same as JUMPG, but if val1 >= val2
+    ADDI (3 param) - Set register in val1 to sum of register content in val2 with raw data in val3 (val3 can be negative)
+    ADD (3 param) - Set register in val1 to sum of register content in val2 with register content in val3
+    SUB (3 param) - Set register in val1 to difference of register content in val2 with register content in val3
+    STW (3 param) - Store register in val1 to a memory location offset by val2 from val3
+    LDW (3 param) - Store mem content to register in val1 from a memory location offset by val2 from val3
+
 Not yet supported (planned):
+    STWIO (expect 3 param) - Write a value from a memory location offset by val2 from val3 to the IO indicated by register in val1
+    [logic - and, or]
+
+--PSEUDO--
+
+Not yet supported (planned):
+    INC (1 param) - Increment the indicated register, implement as ADDI (regX, regX, 1);
+    DEC (1 param) - Decrement the indicated register, implement as ADDI (regX, regX, -1);
